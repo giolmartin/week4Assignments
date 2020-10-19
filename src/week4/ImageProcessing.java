@@ -5,26 +5,31 @@ import acm.program.*;
 
 public class ImageProcessing extends GraphicsProgram {
 
-	public static final int APPLICATION_WIDTH = 800;
-	public static final int APPLICATION_HEIGHT = 800;
-	
 			public void run() {
 				
 				GImage image = new GImage("Dali.jpeg");
 				GImage flippedImage =  flipImage(image);
 				
-				image.scale(1.0);
+				
 				add(image, 10, 10);
+				add(flipImage(image), 600,10);
 			}
 			
 			private GImage flipImage(GImage image) {
 				int[][] array = image.getPixelArray();
 				
-				int height = array.length;
 				int width = array[0].length;
+				int height = array.length;
+			
 				
-				
-				
-				return null;
+				for(int i = 0; i < height; i ++) {
+					for (int j = 0; j < width/2; j++) {
+						int pxl = width - j - 1;
+						int temp = array[i][j];
+						 array[i][j] = array[i][pxl];
+						 array[i][pxl] = temp;
+					}
+				}
+				return new GImage(array);
 			}
 }
